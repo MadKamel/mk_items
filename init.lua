@@ -1,3 +1,5 @@
+dofile(minetest.get_modpath("mk_items").."/conveyor.lua")
+
 minetest.override_item("default:steel_ingot", {
 	description = "Iron Ingot"
 })
