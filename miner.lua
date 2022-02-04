@@ -54,6 +54,17 @@ minetest.register_abm({
 			minetest.get_meta(above(pos)):get_inventory():add_item('dst', 'default:iron_lump')
 		elseif minetest.get_node(above(under(pos))).name == "mk_items:coal_deposit" then
 			minetest.get_meta(above(pos)):get_inventory():add_item('dst', 'default:coal_lump')
+		elseif minetest.get_node(above(above(under(pos)))).name == "mk_items:copper_deposit" then
+			minetest.get_meta(above(pos)):get_inventory():add_item('dst', 'default:copper_lump')
 		end
 	end
+})
+
+minetest.register_craft({
+	output = "mk_items:miner",
+	recipe = {
+		{"", "mk_items:iron_frame", ""},
+		{"mk_items:iron_plate", "mk_items:motor", "mk_items:iron_plate"},
+		{"mk_items:steel_rod", "mk_items:chisel", "mk_items:steel_rod"}
+	}
 })
