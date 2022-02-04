@@ -85,6 +85,34 @@ minetest.register_craftitem("mk_items:steel_ingot", {
 	inventory_image = "mk_steel_ingot.png"
 })
 
+minetest.register_craft({
+	output = "mk_items:steel_ingot",
+	type = "cooking",
+	recipe = "mk_items:coked_iron_lump"
+})
+
+minetest.register_craftitem("mk_items:coke_lump", {
+	description = "Coke Lump",
+	inventory_image = "mk_coke.png"
+})
+
+minetest.register_craft({
+	output = "mk_items:coke_lump",
+	type = "cooking",
+	recipe = "default:coal_lump"
+})
+
+minetest.register_craftitem("mk_items:coked_iron_lump", {
+	description = "Coked Iron Lump",
+	inventory_image = "mk_coked_iron.png"
+})
+
+minetest.register_craft({
+	output = "mk_items:coked_iron_lump",
+	type = "shapeless",
+	recipe = {"default:iron_lump", "mk_items:coke_lump"}
+})
+
 minetest.register_craftitem("mk_items:steel_rod", {
 	description = "Steel Rod",
 	inventory_image = "mk_steel_rod.png"
@@ -94,5 +122,62 @@ minetest.register_craft({
 	output = "mk_items:steel_rod 2",
 	recipe = {
 		{"mk_items:steel_ingot"}
+	}
+})
+
+minetest.register_craftitem("mk_items:framed_iron_plate", {
+	description = "Framed Iron Plate",
+	inventory_image = "mk_framed_iron_plate.png"
+})
+
+minetest.register_craft({
+	output = "mk_items:framed_iron_plate 4",
+	recipe = {
+		{"", "mk_items:iron_plate", ""},
+		{"mk_items:iron_plate", "mk_items:iron_frame", "mk_items:iron_plate"},
+		{"", "mk_items:iron_plate", ""}
+	}
+})
+
+minetest.register_craftitem("mk_items:motor_assembly", {
+	description = "Motor Casing Assembly",
+	inventory_image = "mk_motor_assembly.png"
+})
+
+minetest.register_craft({
+	output = "mk_items:motor_assembly",
+	recipe = {
+		{"", "mk_items:iron_plate", ""},
+		{"mk_items:framed_iron_plate", "mk_items:steel_rod", "mk_items:framed_iron_plate"},
+		{"", "mk_items:iron_plate", ""}
+	}
+})
+
+minetest.register_craftitem("mk_items:motor", {
+	description = "Motor",
+	inventory_image = "mk_motor.png"
+})
+
+minetest.register_craft({
+	output = "mk_items:motor",
+	recipe = {
+		{"", "mk_items:power_supply", ""},
+		{"mk_items:steel_rod", "mk_items:stator", "mk_items:steel_rod"},
+		{"", "mk_items:motor_assembly", ""}
+	}
+})
+
+minetest.register_node("mk_items:modular_motor", {
+	description = "Modular Motor",
+	tiles = {"mk_modular_motor_side.png", "mk_modular_motor_side.png", "mk_modular_motor_end.png", "mk_modular_motor_end.png", "mk_modular_motor_side.png", "mk_modular_motor_side.png"},
+	groups = {oddly_breakable_by_hand = 3}
+})
+
+minetest.register_craft({
+	output = "mk_items:modular_motor",
+	recipe = {
+		{"", "mk_items:framed_iron_plate", ""},
+		{"mk_items:framed_iron_plate", "mk_items:motor", "mk_items:framed_iron_plate"},
+		{"", "mk_items:framed_iron_plate", ""}
 	}
 })
