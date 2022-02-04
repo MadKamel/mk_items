@@ -1,5 +1,68 @@
 dofile(minetest.get_modpath("mk_items").."/conveyor.lua")
 
+
+
+-- First off, the chisel.
+minetest.register_tool("mk_items:chisel", {
+	description = "Mineral Deposit Chisel",
+	inventory_image = "chisel.png",
+	wield_image = "chisel.png^[transformR90",
+	range = 2,
+	tool_capabilities = {
+		groupcaps={
+			deposit = {
+				times = {
+					[1] = 1.60
+				},
+				uses = 0
+			},
+		},
+		full_punch_interval = 0.01,
+		max_drop_level = 1,
+	}
+})
+
+give_chisel = function(player)
+	local inv = player:get_inventory()
+	inv:add_item("main", ItemStack("mk_items:chisel"))
+	if minetest.get_modpath("xenozapper") then
+		inv:add_item("main", ItemStack("xenozapper:zapper"))
+	end
+end
+
+-- Add the chisel to the player inventory upon first joining.
+minetest.register_on_newplayer(give_chisel)
+
+
+
+-- And the resource nodes.
+minetest.register_node("mk_items:iron_deposit", {
+	description = "Iron Mineral Deposit",
+	tiles = {"mk_iron_node.png"},
+	groups = {deposit = 1, cracky = 2},
+	drop = "default:iron_lump",
+	node_dig_prediction = "mk_items:iron_deposit",
+	after_dig_node = function(pos, oldnode, oldmetadata, digger)
+		minetest.set_node(pos, {name="mk_items:iron_deposit"})
+	end
+})
+
+minetest.register_decoration({
+	name = "mk_items:iron_deposit",
+	deco_type = "schematic",
+	place_on = {"default:dirt_with_grass", "default:dirt_with_snow", "default:dry_dirt_with_dry_grass"},
+	sidelen = 16,
+	fill_ratio = 0.001,
+	y_max = 64,
+	y_min = 3,
+	schematic = minetest.get_modpath("mk_items") .. "/schematics/iron_deposit.mts",
+	flags = "place_center_x, place_center_z, force_placement",
+	rotation = "random",
+})
+
+
+
+-- Finally, the craftitems and other crafting recipes.
 minetest.override_item("default:steel_ingot", {
 	description = "Iron Ingot"
 })
