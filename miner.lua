@@ -59,12 +59,3 @@ minetest.register_abm({
 		end
 	end
 })
-
-minetest.register_craft({
-	output = "mk_items:miner",
-	recipe = {
-		{"", "mk_items:iron_frame", ""},
-		{"mk_items:iron_plate", "mk_items:motor", "mk_items:iron_plate"},
-		{"mk_items:steel_rod", "mk_items:chisel", "mk_items:steel_rod"}
-	}
-})

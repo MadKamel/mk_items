@@ -1,12 +1,3 @@
-minetest.register_craft({
-	output = "mk_items:conveyor 3",
-	recipe = {
-		{"mk_items:iron_plate", "mk_items:iron_plate", "mk_items:iron_plate"},
-		{"mk_items:iron_rod", "mk_items:power_supply", "mk_items:iron_rod"},
-		{"mk_items:iron_rod", "mk_items:iron_frame", "mk_items:iron_rod"}
-	}
-})
-
 -- Register the conveyor node.
 minetest.register_node("mk_items:conveyor", {
 	description = "Conveyor Belt",
