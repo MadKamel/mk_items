@@ -13,7 +13,7 @@ minetest.register_tool("mk_items:chisel", {
 		groupcaps={
 			deposit = {
 				times = {
-					[1] = 1.60
+					[1] = 0.60
 				},
 				uses = 0
 			},
@@ -170,6 +170,16 @@ minetest.register_craftitem("mk_items:coked_iron_lump", {
 minetest.register_craftitem("mk_items:steel_rod", {
 	description = "Steel Rod",
 	inventory_image = "mk_steel_rod.png"
+})
+
+minetest.register_craftitem("mk_items:steel_frame", {
+	description = "Steel Frame",
+	inventory_image = "mk_steel_frame.png"
+})
+
+minetest.register_craftitem("mk_items:steel_plate", {
+	description = "Steel Plate",
+	inventory_image = "mk_steel_plate.png"
 })
 
 minetest.register_craftitem("mk_items:framed_iron_plate", {

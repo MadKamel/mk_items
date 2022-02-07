@@ -5,7 +5,7 @@ local achieve_milestone = function(m_num, set_milestone)
 	if set_milestone then
 		mod_storage:set_int("milestone", prog + 1)
 	end
-	if prog <= 0 then
+	if prog >= 0 then
 		minetest.log("true")
 		minetest.log(prog)
 
@@ -15,8 +15,8 @@ local achieve_milestone = function(m_num, set_milestone)
 				{"default:steel_ingot"}
 			}
 		})
-
-	elseif prog <= 1 then
+	end
+	if prog >= 1 then
 
 		minetest.register_craft({
 			output = "mk_items:iron_plate 3",
@@ -24,8 +24,8 @@ local achieve_milestone = function(m_num, set_milestone)
 				{"default:steel_ingot", "default:steel_ingot"}
 			}
 		})
-
-	elseif prog <= 2 then
+	end
+	if prog >= 2 then
 
 		minetest.register_craft({
 			output = "mk_items:copper_coil 2",
@@ -38,8 +38,64 @@ local achieve_milestone = function(m_num, set_milestone)
 			output = "mk_items:iron_frame 2",
 			recipe = {
 				{"mk_items:iron_rod", "mk_items:iron_rod", "mk_items:iron_rod"},
-				{"mk_items:iron_rod", "", ""},
+				{"mk_items:iron_rod", "", "mk_items:iron_rod"},
 				{"mk_items:iron_rod", "mk_items:iron_rod", "mk_items:iron_rod"},
+			}
+		})
+	end
+	if prog >= 3 then
+
+		minetest.register_craft({
+			output = "mk_items:power_supply",
+			recipe = {
+				{"mk_items:iron_rod", "", "mk_items:iron_rod"},
+				{"mk_items:copper_coil", "mk_items:iron_frame", "mk_items:copper_coil"},
+				{"mk_items:iron_rod", "", "mk_items:iron_rod"},
+			}
+		})
+
+		minetest.register_craft({
+			output = "default:furnace",
+			recipe = {
+				{"mk_items:iron_plate", "mk_items:iron_plate", "mk_items:iron_plate"},
+				{"mk_items:iron_rod", "mk_items:iron_frame", "mk_items:iron_rod"},
+				{"mk_items:copper_coil", "mk_items:power_supply", "mk_items:copper_coil"},
+			}
+		})
+	end
+	if prog >= 4 then
+
+		minetest.register_craft({
+			output = "mk_items:coke_lump",
+			type = "cooking",
+			recipe = "default:coal_lump"
+		})
+
+		minetest.register_craft({
+			output = "mk_items:coked_iron_lump",
+			type = "shapeless",
+			recipe = {"default:iron_lump", "mk_items:coke_lump"}
+		})
+
+		minetest.register_craft({
+			output = "mk_items:steel_ingot",
+			type = "cooking",
+			recipe = "mk_items:coked_iron_lump"
+		})
+
+		minetest.register_craft({
+			output = "mk_items:steel_rod 2",
+			recipe = {
+				{"mk_items:steel_ingot"}
+			}
+		})
+
+		minetest.register_craft({
+			output = "mk_items:steel_frame 2",
+			recipe = {
+				{"mk_items:steel_rod", "mk_items:steel_rod", "mk_items:steel_rod"},
+				{"mk_items:steel_rod", "", "mk_items:steel_rod"},
+				{"mk_items:steel_rod", "mk_items:steel_rod", "mk_items:steel_rod"},
 			}
 		})
 
@@ -65,6 +121,10 @@ milestones = {
 	{
 		ItemStack("mk_items:copper_coil 20"),
 		ItemStack("mk_items:iron_frame 8")
+	},
+	{
+		ItemStack("mk_items:power_supply 2"),
+		ItemStack("mk_items:iron_frame 16")
 	}
 }
 
@@ -72,11 +132,13 @@ milestones = {
 local input_is_valid = function(pos, m_num)
 	local inv = minetest.get_meta(pos):get_inventory()
 	minetest.log(dump(milestones[m_num+1]))
-	for m_counter = 1, #milestones[m_num+1] do
-		if inv:contains_item("container", milestones[m_num+1][m_counter]) then
-			minetest.log("Item "..m_counter.." is correct.")
-		else
-			return false
+	if milestones[m_num+1] then
+		for m_counter = 1, #milestones[m_num+1] do
+			if inv:contains_item("container", milestones[m_num+1][m_counter]) then
+				minetest.log("Item "..m_counter.." is correct.")
+			else
+				return false
+			end
 		end
 	end
 	return true
