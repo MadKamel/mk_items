@@ -1,5 +1,6 @@
 dofile(minetest.get_modpath("mk_items").."/conveyor.lua")
 dofile(minetest.get_modpath("mk_items").."/miner.lua")
+dofile(minetest.get_modpath("mk_items").."/smelters.lua")
 
 
 
